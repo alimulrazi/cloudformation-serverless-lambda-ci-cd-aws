@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: Serverless Lambda CI CD Demo
+Resources:
+  CDDemoLambda:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.6
+      CodeUri: ./Lambdas/Codes
+      Description: 'Serverless Lambda function for CI CD Demo'
+      MemorySize: 128
+      Timeout: 30
+      Role: 'arn:aws:iam::762236412073:role/Cloudforamtion-service-role'
+      Events:
+        getAZsAPI:
+          Type: Api
+          Properties:
+            Path: /get-zone
+            Method: get
+      Environment:
+        Variables:
+          REGION: us-east-1
